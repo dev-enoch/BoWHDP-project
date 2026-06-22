@@ -1,0 +1,119 @@
+================================================================================
+BoWHDP - FULL-FEATURE PLATFORM IMPLEMENTATION PLAN
+================================================================================
+
+This document outlines the granular, step-by-step implementation plan to transition the Borno Works & Housing Delivery Platform (BoWHDP) from an MVP UI to a production-ready, enterprise-scale Monitoring & Evaluation (M&E) system, strictly adhering to the requirements set out in the Project Requirements Document (PRD).
+
+--------------------------------------------------------------------------------
+I. TECHNICAL ARCHITECTURE & INFRASTRUCTURE
+--------------------------------------------------------------------------------
+1. Core Stack
+   - Frontend: Next.js 15 (App Router), React.js, Tailwind CSS
+   - Backend/API: Next.js Serverless Route Handlers + Node.js
+   - Database: MongoDB Atlas (with geospatial indexes replacing PostGIS for MVP speed, transitioning to full geo-indexing)
+   - Mapping: react-leaflet + OpenStreetMap
+
+2. Non-Functional Requirements (NFR) Compliance
+   - NFR-1 (Performance): Ensure 3-second load via Next.js Edge caching and Turbopack.
+   - NFR-4 (Security): Implement AES-256 encryption for database at rest, TLS 1.3 for API calls. NextAuth.js for Role-Based Access Control (RBAC).
+   - NFR-5 (Offline Capability): Service Worker / PWA caching strategies implemented for core web forms to allow submission resilience during poor connectivity.
+   - NFR-6 (Localisation): Implement i18n routing in Next.js for English, Hausa, and Kanuri support.
+
+--------------------------------------------------------------------------------
+II. PHASAL IMPLEMENTATION BREAKDOWN
+--------------------------------------------------------------------------------
+
+=============================================
+PHASE 1: FOUNDATION & DATA INTEGRATION
+Objective: Wire the current MVP UI to the live database and launch the core operational tools.
+=============================================
+
+1. Module 1: Geo-Tracking Dashboard (FR-1.1 to FR-1.6)
+   - Detailed Requirement: The dashboard must pull live project pins, calculate RAG status, and support filtering by LGA/Sector/Contractor.
+   - Way How: 
+     - Expand `Project` Mongoose schema with `geoJSON` point data, budget, status, and contractor refs.
+     - Build `GET /api/projects` endpoint. 
+     - Refactor `MapComponent` and `KPIWidgets` to fetch via SWR.
+   - Verification Plan: Insert 50 test projects via MongoDB. Verify map renders 50 pins instantly. Filter by "Bama LGA" and ensure only Bama pins remain.
+
+2. Module 2: Field Verification API & Web Intake (FR-2.1 to FR-2.6)
+   - Detailed Requirement: The web platform must provide the APIs necessary to ingest field reports, and a responsive mobile-web form as a fallback.
+   - Way How: 
+     - Build a responsive Next.js page (`/field-report`) designed for mobile browsers.
+     - Implement HTML5 Geolocation API to capture coordinates upon submission.
+     - Build `POST /api/visits` to ingest report data and photos (storing images to AWS S3/Cloudinary).
+   - Verification Plan: Open the `/field-report` page on a mobile browser emulator, capture a photo, allow location access, submit, and verify the data hits the web dashboard instantly.
+
+3. Module 3: Contractor Performance Scorecard (FR-3.1 to FR-3.5)
+   - Detailed Requirement: Nightly auto-calculation of scores (Timeliness 35%, Quality 35%, Responsiveness 15%, Complaints 15%).
+   - Way How: 
+     - Build a Next.js Cron job Route Handler (`/api/cron/scoring`).
+     - Write an aggregation pipeline to pull average quality from `SiteVisit` docs and average timeliness from `Project` milestone arrays.
+     - Update the `Contractor` document's `overallScore`.
+   - Verification Plan: Manually trigger the cron endpoint via cURL. Verify that a contractor with 10 delayed projects instantly drops to "Warning" status on the UI.
+
+
+=============================================
+PHASE 2: TRANSPARENCY (CITIZEN & BUDGET)
+Objective: Connect financial data and open communication channels to the public.
+=============================================
+
+1. Module 4: Citizen Feedback Channel (FR-4.1 to FR-4.5)
+   - Detailed Requirement: USSD (*347*WORKS#) and WhatsApp chatbot for complaint routing and SLA tracking.
+   - Way How: 
+     - Create a `Complaint` schema with SLA timers.
+     - Integrate Africa's Talking API for USSD menus. Build `POST /api/webhooks/ussd` to handle state navigation (1: Report, 2: Track).
+     - Integrate Meta WhatsApp API. Build `POST /api/webhooks/whatsapp` to parse text and save to DB.
+     - Build Admin Inbox UI to view and assign these complaints.
+   - Verification Plan: Send a test WhatsApp message to the Sandbox number. Verify the message appears in the Admin Inbox within 2 seconds.
+
+2. Module 7: Budget vs Delivery Tracker (FR-7.1 to FR-7.4)
+   - Detailed Requirement: Pull MoF disbursement data and compare it to physical verified progress.
+   - Way How: 
+     - Build a secure API endpoint (`POST /api/finance/sync`) for the MoF to push release data, or build a CSV upload tool.
+     - Update the `Project` schema to include `budgetAllocated`, `amountReleased`, and `certifiedValue`.
+     - Update `/projects/[id]` to render a variance chart.
+   - Verification Plan: Upload a MoF release CSV showing 100% funds released for a project at 10% physical progress. Verify the system flags this as a "Critical Variance".
+
+3. Module 8: Quarterly Public Delivery Report (FR-8.1 to FR-8.4)
+   - Detailed Requirement: Auto-generated PDFs and citizen-facing sub-domain in 3 languages.
+   - Way How: 
+     - Implement `@react-pdf/renderer` to generate multi-page PDF documents pulling Q1/Q2/etc milestone data.
+     - Build a public-facing `/public` route with a simplified, read-only version of the map.
+   - Verification Plan: Click "Generate Q1 Report", download the PDF, and ensure the totals match the live dashboard KPIs exactly.
+
+
+=============================================
+PHASE 3: INTELLIGENCE (DRONES & AI RISK)
+Objective: Introduce automated oversight and predictive failure warnings.
+=============================================
+
+1. Module 5: Drone Progress Verification (FR-5.1 to FR-5.5)
+   - Detailed Requirement: Time-stamped aerial imagery repository with side-by-side comparison for projects > ₦100M.
+   - Way How: 
+     - Set up AWS S3 / Cloudinary for high-res orthomosaic storage.
+     - Build an Admin upload interface.
+     - Build a React-based image comparison slider (before/after) on the Project Details page.
+   - Verification Plan: Upload "Month 1" and "Month 2" drone images for a flyover project. Verify the user can drag a slider to seamlessly compare the two images on the UI.
+
+2. Module 6: Predictive Risk Engine (FR-6.1 to FR-6.4)
+   - Detailed Requirement: Score projects on likelihood of failure based on contractor history, cash flow, and complaints, sending top-10 alerts weekly.
+   - Way How: 
+     - Write a server-side algorithm that assigns weightings: if (contractor.overallScore < 50) +20 risk points; if (financialVariance > 30%) +40 risk points.
+     - Setup a weekly CRON job using `Resend` or `Nodemailer` to email the Commissioner.
+   - Verification Plan: Force a test project's risk score above 80 points. Trigger the email CRON. Verify the email arrives containing the project name and plain-language explanation of why it was flagged.
+
+
+--------------------------------------------------------------------------------
+III. PROJECT ROLES & SECURITY
+--------------------------------------------------------------------------------
+- Authentication will be handled via NextAuth.js (Credentials Provider for launch, moving to OAuth if state infrastructure exists).
+- Role-Based Access Control (RBAC) middleware will restrict:
+  - Engineers: Can only POST to `/api/visits`.
+  - Contractors: Can only GET their own scorecard `/api/contractors/[id]`.
+  - Directors/Commissioner: Full read access, report generation capabilities.
+
+--------------------------------------------------------------------------------
+IV. ACCEPTANCE & HANDOVER
+--------------------------------------------------------------------------------
+Prior to the completion of each phase, User Acceptance Testing (UAT) will be conducted by Ministry staff on a staging URL. Phase sign-off requires all MUST-have functional requirements to be demonstrably operational in the staging environment.

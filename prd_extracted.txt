@@ -1,0 +1,657 @@
+
+PROJECT REQUIREMENTS DOCUMENT
+BoWHDP
+Borno Works & Housing Delivery Platform
+An Integrated Real-Time Monitoring & Evaluation System
+  Prepared for the Ministry of Works & Housing, Borno State  
+
+Document Title
+BoWHDP — Project Requirements Document (PRD)
+Version
+1.0
+Date Issued
+June 2026
+Prepared By
+Haigha Technology — Maiduguri, Borno State
+Author
+Harun Abubakar Ibrahim, CEO & Founder
+Submitted To
+Honourable Commissioner, Ministry of Works & Housing
+Classification
+Confidential — Government Use
+
+Table of Contents
+
+
+
+1. Executive Summary
+The Borno Works & Housing Delivery Platform (BoWHDP) is an integrated, web and mobile-based Monitoring & Evaluation (M&E) system designed to give the Honourable Commissioner of Works & Housing complete, real-time visibility over every road, housing, bridge, and public works project in Borno State.
+The platform consolidates eight specialised modules — geo-tracking, field verification, contractor scorecards, citizen feedback, drone-based progress verification, predictive risk analytics, budget-versus-delivery tracking, and automated quarterly public reports — into a single, unified delivery intelligence system.
+BoWHDP is aligned with the Borno State 25-Year Development Framework and His Excellency Governor Prof. Babagana Umara Zulum's commitment to transparency, value-for-money, and citizen-centred governance. The platform is designed for full deployment within 12 months, with the first visible wins delivered inside the Commissioner's first 100 days in office.
+1.1 Document Purpose
+This PRD defines the business need, scope, functional and non-functional requirements, technical architecture, delivery roadmap, governance model, and acceptance criteria for the BoWHDP platform. It serves as the binding reference document between the Ministry of Works & Housing (the Client) and Haigha Technology (the Implementing Partner).
+1.2 Target Outcomes
+Eliminate ghost projects through geo-tagged, evidence-based field verification.
+Reduce project delivery slippage by at least 30% within the first 12 months.
+Recover overpayment leakage through drone and milestone-based payment verification.
+Increase citizen trust through transparent, LGA-level public reporting.
+Provide the Commissioner with weekly, executive-level delivery intelligence for decision-making.
+
+2. Project Background & Context
+2.1 The Current Situation
+The Ministry of Works & Housing manages a large, geographically dispersed portfolio of road, housing, bridge, and public building projects across Borno State's 27 Local Government Areas. Project monitoring is currently characterised by:
+Paper-based progress reporting with limited or no real-time visibility.
+Manual, often delayed site visits — particularly difficult in security-affected LGAs.
+Limited integration between budget disbursement and verified physical delivery.
+Reactive rather than predictive identification of failing or at-risk projects.
+Weak citizen feedback channels, especially for non-smartphone users in rural areas.
+2.2 The Strategic Opportunity
+With a newly appointed Commissioner, the Ministry has a clear window to institute a modern, technology-driven M&E culture. Borno State has already demonstrated leadership in digital governance through initiatives such as BOGIS (land portal), the BOSETF analytical dashboard, and the BOSCHMA contributory health scheme platform — all delivered locally by Haigha Technology.
+BoWHDP extends this digital governance trajectory into the works and housing sector, where the economic stakes — and reputational stakes for His Excellency's administration — are highest.
+2.3 Alignment with State Priorities
+The platform is explicitly aligned with:
+The Borno State 25-Year Development Framework (infrastructure and digital governance pillars).
+His Excellency's 10-Point Agenda on transparency and service delivery.
+National Digital Economy Policy and Strategy (NDEPS) 2020–2030.
+Sustainable Development Goals (SDGs) 9, 11, and 16.
+
+3. Project Scope
+3.1 In Scope
+The BoWHDP project includes the design, build, deployment, training, and post-launch support of the following:
+A central web-based delivery dashboard for the Commissioner and senior ministry officials.
+A field verification mobile application (Android-first, offline-capable) for engineers and monitors.
+A contractor performance scorecard module integrated with procurement workflows.
+A citizen feedback channel via USSD short code and WhatsApp business API.
+A drone verification protocol and reporting workflow for high-value projects.
+A predictive risk analytics engine for early identification of failing projects.
+A budget-versus-delivery reconciliation tracker integrated with Ministry of Finance data.
+An automated quarterly public delivery report generator and citizen-facing webpage.
+Training of ministry staff (technical and non-technical), engineers, and selected contractors.
+12 months of post-launch maintenance, hosting, and Service Level Agreement (SLA) support.
+3.2 Out of Scope
+Procurement of contractor-side hardware (vehicles, machinery, etc.).
+Direct project execution, supervision, or contract management.
+Internal Ministry of Finance accounting system replacement.
+Hardware procurement for end-users beyond the agreed device allocation list.
+3.3 Assumptions
+The Ministry will appoint a dedicated Project Sponsor and a Project Steering Committee.
+The Ministry will grant access to existing project records, budget data, and contractor registries.
+Internet connectivity, however intermittent, will be available at major ministry locations.
+A Memorandum of Understanding (MoU) will be signed with the Ministry of Finance for budget data integration.
+3.4 Constraints
+Security limitations may restrict physical access to certain LGAs (Bama, Gwoza, Marte, Abadam, Mobbar).
+Connectivity in remote LGAs requires offline-first architecture.
+Drone deployment is subject to NCAA, NAF, and state security clearance.
+Initial budget envelope and timeline as agreed in the signed Service Agreement.
+
+4. Stakeholders
+The following stakeholders have direct interest in, influence over, or use of the BoWHDP platform:
+Stakeholder
+Role / Interest
+Engagement Level
+Honourable Commissioner, Works & Housing
+Executive Sponsor; primary user of delivery dashboard.
+Decision authority; weekly executive briefings.
+Permanent Secretary
+Administrative oversight, contract sign-off.
+Steering Committee chair.
+Director of Works / Housing / M&E
+Operational owners of project portfolio.
+Daily power users.
+Ministry of Finance & Budget
+Budget release data integration.
+Data-sharing MoU partner.
+Ministry Engineers & Field Monitors
+Site verification and progress capture.
+Mobile app primary users.
+Contractors
+Subject to performance scoring.
+Read-only access to own scorecard.
+Citizens of Borno State
+Beneficiaries; feedback providers.
+USSD, WhatsApp, public report users.
+Office of the Governor
+Strategic visibility into ministry delivery.
+Quarterly executive briefing recipient.
+Haigha Technology
+Design, build, deploy, train, support.
+Implementing partner.
+
+5. Functional Requirements
+Requirements are organised by module. Priority levels follow MoSCoW convention: MUST (essential for go-live), SHOULD (important but not blocking), COULD (desirable enhancement).
+5.1 Module 1 — Geo-Tracking Dashboard
+Provides the central command view of all ministry projects on a live, interactive map.
+ID
+Feature
+Requirement
+Priority
+FR-1.1
+Interactive Map
+Display all projects as pins on a Borno State map, filterable by LGA, sector, contractor, and status.
+MUST
+FR-1.2
+RAG Status
+Show Red / Amber / Green health status per project based on schedule, budget, and quality KPIs.
+MUST
+FR-1.3
+Project Drill-down
+Click pin to view full project profile: scope, contractor, contract sum, milestones, photos.
+MUST
+FR-1.4
+Filters & Search
+Filter by LGA, year, sector, funding source, status; full-text search across project names.
+MUST
+FR-1.5
+Portfolio KPIs
+Display top-line KPIs: total projects, % on track, total portfolio value, at-risk count.
+MUST
+FR-1.6
+Export
+Export filtered views to PDF and Excel for cabinet briefings.
+SHOULD
+5.2 Module 2 — Field Verification Mobile App
+Offline-first Android app for engineers and monitors to capture verified field data.
+ID
+Feature
+Requirement
+Priority
+FR-2.1
+Geo-Tagged Photos
+Capture photos with auto-embedded GPS coordinates, timestamp, project ID, user ID.
+MUST
+FR-2.2
+Offline Mode
+Full functionality without network; auto-sync when connectivity restored.
+MUST
+FR-2.3
+Site Visit Form
+Structured checklist per project type (road, building, housing) with milestone validation.
+MUST
+FR-2.4
+Voice Notes
+Record voice observations in Hausa, Kanuri, or English with auto-transcription.
+COULD
+FR-2.5
+Anti-Tamper
+Reject photos from gallery; only camera-captured, timestamped images accepted.
+MUST
+FR-2.6
+Site Visit Schedule
+Push notifications for scheduled site visits and overdue inspections.
+SHOULD
+5.3 Module 3 — Contractor Performance Scorecard
+ID
+Feature
+Requirement
+Priority
+FR-3.1
+Scoring Model
+Composite score from timeliness (35%), quality (35%), responsiveness (15%), complaints (15%).
+MUST
+FR-3.2
+Contractor Profile
+Full profile: company info, past projects, scores by year, blacklist status.
+MUST
+FR-3.3
+Procurement Integration
+Scorecard accessible during bid evaluation; auto-flag low-scoring bidders.
+SHOULD
+FR-3.4
+Self-Service Portal
+Contractors can view own scores and submit dispute requests.
+SHOULD
+FR-3.5
+Auto-Calculation
+Scores recalculated nightly based on latest field data, milestone reports, and complaints.
+MUST
+5.4 Module 4 — Citizen Feedback Channel (USSD + WhatsApp)
+ID
+Feature
+Requirement
+Priority
+FR-4.1
+USSD Short Code
+Functional short code (e.g. *347*WORKS#) in Hausa, Kanuri, English; works on all GSM networks.
+MUST
+FR-4.2
+WhatsApp Channel
+Official WhatsApp number with chatbot for complaint submission and status tracking.
+MUST
+FR-4.3
+Complaint Routing
+Auto-assign complaints to responsible engineer / LGA officer with SLA timers.
+MUST
+FR-4.4
+Status Notification
+Citizens receive SMS/WhatsApp updates on complaint resolution status.
+MUST
+FR-4.5
+Voice Channel
+Optional voice complaint line for low-literacy users.
+COULD
+5.5 Module 5 — Drone Progress Verification
+ID
+Feature
+Requirement
+Priority
+FR-5.1
+Drone Flyover Scheduling
+Monthly scheduled aerial inspection of projects above ₦100M.
+MUST
+FR-5.2
+Imagery Repository
+Time-stamped, geo-referenced imagery library per project.
+MUST
+FR-5.3
+Month-on-Month Comparison
+Visual side-by-side comparison of imagery to verify actual progress.
+MUST
+FR-5.4
+Payment Verification
+Compare drone-verified progress against contractor payment requests.
+MUST
+FR-5.5
+AI Progress Estimation
+Computer vision estimation of % physical completion from imagery.
+COULD
+5.6 Module 6 — Predictive Risk Engine
+ID
+Feature
+Requirement
+Priority
+FR-6.1
+Risk Scoring Model
+Score projects on likelihood of failure using contractor history, cash flow, weather, security.
+SHOULD
+FR-6.2
+Top-10 At-Risk Alert
+Weekly automated alert to Commissioner with top 10 highest-risk projects.
+MUST
+FR-6.3
+Risk Explanation
+Each risk score accompanied by plain-language explanation of contributing factors.
+SHOULD
+FR-6.4
+Intervention Tracker
+Log interventions taken on flagged projects and measure outcomes.
+SHOULD
+5.7 Module 7 — Budget vs Delivery Tracker
+ID
+Feature
+Requirement
+Priority
+FR-7.1
+MoF Data Integration
+Pull budget allocations and release data from Ministry of Finance systems (or manual upload).
+MUST
+FR-7.2
+Reconciliation View
+Side-by-side view of budgeted, released, paid, and verified-delivered amounts per project.
+MUST
+FR-7.3
+Variance Reports
+Auto-generated variance reports highlighting projects with disbursement-delivery gaps.
+MUST
+FR-7.4
+Cash Flow Forecast
+Project-level cash flow forecasts based on milestones and payment schedules.
+SHOULD
+5.8 Module 8 — Quarterly Public Delivery Report
+ID
+Feature
+Requirement
+Priority
+FR-8.1
+Auto-Generated PDF
+Quarterly PDF report by LGA, signed off by Commissioner, ready for cabinet and public release.
+MUST
+FR-8.2
+Citizen-Facing Webpage
+Public webpage at a subdomain of bornostate.gov.ng with key metrics, project map, completed milestones.
+MUST
+FR-8.3
+Multi-Language
+Reports and webpage available in English, Hausa, and Kanuri.
+SHOULD
+FR-8.4
+Photo Gallery
+Public gallery of completed and ongoing projects with before/after imagery.
+SHOULD
+
+6. Non-Functional Requirements
+Non-functional requirements (NFRs) govern how the system performs, scales, secures data, and remains usable across Borno's diverse operating conditions.
+ID
+Category
+Requirement
+NFR-1
+Performance
+Dashboard loads in under 3 seconds on a 3G connection; field app responsive on entry-level Android devices (2GB RAM).
+NFR-2
+Availability
+99.5% uptime SLA. Scheduled maintenance windows communicated 72 hours in advance.
+NFR-3
+Scalability
+Support up to 10,000 active projects, 5,000 contractors, 50,000 monthly citizen feedback submissions.
+NFR-4
+Security
+Encrypted at rest (AES-256) and in transit (TLS 1.3); role-based access control; NDPR-compliant data handling.
+NFR-5
+Offline Capability
+Field app must function offline for at least 72 hours of continuous use and sync 500+ records on reconnect.
+NFR-6
+Localisation
+Full UI available in English, Hausa, and Kanuri. Date formats and currency in Nigerian conventions.
+NFR-7
+Auditability
+Complete audit log of all data changes, user actions, and report generations. Logs retained for 7 years.
+NFR-8
+Hosting
+Hosted in Nigeria-based data centres (NDPR compliance) with disaster recovery in a secondary region.
+NFR-9
+Accessibility
+Web interface WCAG 2.1 AA compliant; readable on screens from 5" mobile to 27" desktop.
+NFR-10
+Maintainability
+Modular codebase, full technical documentation, knowledge transfer to ministry IT staff.
+NFR-11
+Interoperability
+REST APIs for integration with MoF, BOGIS, BOSETF, and other state systems; standard data export formats.
+
+7. Technical Architecture
+7.1 Architectural Approach
+BoWHDP follows a modular, API-first architecture built on proven open-source technologies. Each of the eight modules is a logical sub-system that communicates with a central data layer through well-defined APIs, enabling phased rollout, independent updates, and future integrations.
+7.2 Technology Stack
+Layer
+Technology
+Justification
+Frontend (Web)
+React.js + Next.js + Tailwind CSS
+Fast, mobile-responsive, modern UX.
+Mobile App
+React Native (Android-first)
+Single codebase, offline-first via local SQLite cache.
+Backend / API
+Node.js / Express or Python / FastAPI
+REST + GraphQL APIs; modular microservices.
+Database
+PostgreSQL + PostGIS
+Robust relational store with geo-spatial capabilities.
+Mapping
+Mapbox / OpenStreetMap
+Reliable mapping with offline tile support.
+Analytics & BI
+Apache Superset / Metabase + Power BI
+Self-service analytics; executive dashboards.
+USSD Gateway
+Africa's Talking / Local Aggregator
+Cross-network USSD with proven Nigerian deployments.
+WhatsApp
+WhatsApp Business API (Meta-approved BSP)
+Official, scalable WhatsApp integration.
+AI / ML
+Python (scikit-learn, OpenCV)
+Risk prediction and drone imagery analysis.
+Hosting
+Nigerian Tier-III data centre + AWS Cape Town DR
+NDPR-compliant primary; resilient disaster recovery.
+7.3 System Architecture Diagram (Logical)
+The platform follows a four-layer logical architecture:
+Presentation Layer — Web dashboard, mobile app, USSD menus, WhatsApp bot, public report site.
+API Gateway Layer — Authentication, rate limiting, API routing to micro-services.
+Service Layer — Eight modular services (one per module) plus shared services (auth, notifications, reporting).
+Data Layer — PostgreSQL primary store, PostGIS for spatial data, object storage for imagery, data warehouse for analytics.
+7.4 Integration Points
+Ministry of Finance — Budget release and disbursement data (API or scheduled file exchange).
+BOGIS — Land and parcel data for housing projects.
+BOSETF Dashboard — Cross-ministry KPI alignment.
+Contractor Registry (BPP) — Bidder validation.
+Drone Service Provider — Imagery upload via secure API.
+Telco / USSD Aggregator — Citizen feedback channel.
+
+8. User Roles & Permissions
+Role
+Access Scope
+Key Capabilities
+Commissioner
+Full read access to all data; executive dashboard; alerts.
+View, export, sign-off reports.
+Permanent Secretary
+Full administrative access including user management.
+Admin, approve, configure.
+Director (Works/Housing/M&E)
+Full operational access within their directorate.
+Manage projects, contractors, reports.
+Project Engineer
+Read/write on assigned projects only.
+Capture field data, update milestones.
+Field Monitor
+Write-only on assigned site visits.
+Submit geo-tagged verification.
+Contractor
+Read-only on own projects and scorecard.
+View, dispute, download.
+Citizen
+Public report view; submit feedback via USSD/WhatsApp.
+Report issues, view public data.
+System Administrator
+Full technical configuration; audit log access.
+Configure, monitor, support.
+
+9. Deliverables
+Haigha Technology will provide the following deliverables across the engagement:
+9.1 Discovery Phase
+Inception report and stakeholder map.
+Validated requirements document (this PRD, signed off).
+System design document and architecture diagrams.
+9.2 Build Phase
+Functional web dashboard (all 8 modules per phased plan).
+Functional Android mobile field app.
+USSD short code service (live across all major Nigerian networks).
+WhatsApp Business channel and chatbot.
+Public citizen-facing report webpage.
+9.3 Deployment & Training
+Configured production environment with backups and monitoring.
+User Acceptance Testing (UAT) reports and sign-off.
+Training of executive users (Commissioner, PS, Directors).
+Training of operational users (engineers, monitors, admin staff).
+Training materials: user manuals, quick-reference cards, video tutorials in English/Hausa/Kanuri.
+9.4 Post-Launch
+12-month SLA support and maintenance.
+Monthly performance reports.
+Quarterly platform health reviews with the Steering Committee.
+Source code escrow and full technical documentation handover.
+
+10. Project Timeline & Roadmap
+The project will be delivered in three phases over 12 months. Each phase ends with a concrete, demonstrable milestone.
+10.1 Phase 1 — Foundation (Months 0–3)
+Objective: Give the Commissioner a working delivery dashboard within his first 100 days.
+Discovery, requirements sign-off, system design.
+Module 1 — Geo-Tracking Dashboard (production).
+Module 2 — Field Verification App (production).
+Module 3 — Contractor Scorecard (production).
+Migration of existing project portfolio data.
+Training of executive users and first cohort of engineers.
+10.2 Phase 2 — Transparency (Months 4–6)
+Objective: Open the system to citizens and connect to budget data.
+Module 4 — Citizen Feedback (USSD + WhatsApp) live.
+Module 7 — Budget vs Delivery Tracker live.
+Module 8 — Quarterly Public Report (first edition published).
+Public launch event with His Excellency the Governor.
+10.3 Phase 3 — Intelligence (Months 7–12)
+Objective: Add predictive and aerial-verification intelligence.
+Module 5 — Drone Verification operational on first 10 high-value projects.
+Module 6 — Predictive Risk Engine live with weekly Commissioner alerts.
+Full integration of all modules; advanced analytics layer.
+Knowledge transfer to ministry IT staff; transition to long-term SLA.
+10.4 Key Milestones
+Milestone
+Target Date
+Deliverable
+PRD Sign-Off
+Month 0
+Signed PRD
+Phase 1 Go-Live
+Month 3
+Dashboard + Field App + Scorecard
+Phase 2 Go-Live
+Month 6
+Citizen Feedback + Budget + Public Report
+Phase 3 Go-Live
+Month 12
+Drone + Risk Engine + Full Integration
+
+11. Governance & Project Management
+11.1 Governance Structure
+Project Sponsor — Honourable Commissioner of Works & Housing.
+Steering Committee — Chaired by the Permanent Secretary; includes Directors, MoF representative, and Haigha leadership.
+Project Management Office (PMO) — Joint team led by Haigha PM with Ministry counterpart.
+Working Groups — Module-specific working groups for requirements clarification and UAT.
+11.2 Reporting Cadence
+Weekly — PMO status updates to Steering Committee chair.
+Bi-weekly — Steering Committee meeting.
+Monthly — Executive briefing to the Honourable Commissioner.
+Quarterly — Strategic review with His Excellency's office.
+11.3 Change Management
+All changes to scope, requirements, or timeline must be raised via a formal Change Request, evaluated by the PMO, and approved by the Steering Committee. Changes with budget implications require Commissioner approval.
+11.4 Methodology
+The project will follow an Agile-Hybrid methodology — Waterfall for top-level phase gates and procurement discipline, Scrum within each phase for two-week development sprints with continuous demos to the Ministry.
+
+12. Risk Assessment & Mitigation
+ID
+Risk
+Probability
+Impact
+Mitigation
+R-1
+Delayed Ministry of Finance integration data access.
+Medium
+High
+Early MoU; manual data ingestion fallback for first 3 months.
+R-2
+Security restrictions limit drone deployment.
+Medium
+Medium
+NCAA/NAF clearance secured early; ground-based field app fallback.
+R-3
+Low engineer adoption of mobile app.
+Medium
+High
+Mandatory use for milestone payment release; intensive training; performance incentives.
+R-4
+Contractor pushback on transparent scorecard.
+High
+Medium
+Phased rollout; scoring methodology published; dispute resolution mechanism.
+R-5
+Power and internet instability at field sites.
+High
+Medium
+Offline-first design; solar backup at key ministry offices.
+R-6
+Data privacy / NDPR compliance breach.
+Low
+High
+NDPR-compliant architecture; regular security audits; data protection officer appointed.
+R-7
+Political transition affecting executive sponsorship.
+Low
+High
+Institutionalise platform via Executive Order; train multiple senior champions.
+R-8
+Budget constraints mid-project.
+Medium
+Medium
+Phased contracting with go/no-go gates at each phase end.
+
+13. Success Metrics & KPIs
+Success will be measured against the following indicators, baselined at project inception and tracked quarterly.
+KPI
+Baseline
+Target (12 months)
+% Projects with up-to-date field verification
+To be set at inception
+≥ 90%
+% On-time project completion
+Baseline year 1
++30% improvement
+Citizen feedback submissions / month
+0
+≥ 2,000
+Feedback resolution rate within SLA
+N/A
+≥ 75%
+Overpayment cases prevented
+Unmeasured
+Track and report quarterly
+Contractor scorecard adoption in procurement
+0%
+100% by Month 9
+Quarterly public reports published
+0
+4 / year
+System uptime
+N/A
+≥ 99.5%
+
+14. Indicative Budget Structure
+The full commercial proposal will accompany this PRD as a separate document. The indicative budget structure below reflects standard cost categories; final figures will be agreed during contract negotiation.
+Cost Category
+Description
+Software Design & Development
+All 8 modules — design, build, testing.
+Mobile App Development
+Android field verification app, including localisation.
+USSD & WhatsApp Integration
+Aggregator fees, short code rental, BSP charges.
+Hosting & Infrastructure
+Nigerian Tier-III data centre, DR site, CDN.
+Drone Service Contracts
+Sub-contracted licensed drone operators.
+Training & Change Management
+Executive, operational, and contractor training in 3 languages.
+Project Management & QA
+PMO, QA testing, security audits.
+12-Month SLA Support
+Bug fixes, minor enhancements, helpdesk, monitoring.
+Contingency (10%)
+Standard contingency reserve.
+
+15. Acceptance Criteria
+Each phase will be formally accepted by the Ministry against the following criteria:
+All MUST-have functional requirements for the phase are demonstrably operational.
+All applicable non-functional requirements are verified through performance and security testing.
+User Acceptance Testing (UAT) completed and signed off by nominated Ministry users.
+Training delivered to the agreed user cohorts with attendance and assessment records.
+User manuals, technical documentation, and operations runbooks delivered.
+Production deployment completed with backup, monitoring, and DR verified.
+Phase Completion Report submitted and accepted by the Steering Committee.
+
+16. Document Approval & Sign-Off
+By signing below, the parties acknowledge that they have read, understood, and accepted the requirements set out in this document, and agree that this PRD shall serve as the binding reference for the BoWHDP project.
+
+Party
+Name & Designation
+Signature & Date
+Ministry of Works & Housing
+Honourable Commissioner
+
+
+
+
+_____________________
+Ministry of Works & Housing
+Permanent Secretary
+
+
+
+
+_____________________
+Haigha Technology
+Harun Abubakar Ibrahim
+CEO & Founder
+
+
+
+_____________________
+
+— End of Document —
